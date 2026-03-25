@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Superando a Ansiedade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sage: #8fa897;
+  --sage-light: #c5d4c9;
+  --sage-pale: #eaf0ec;
+  --clay: #c4a882;
+  --clay-light: #e8ddd0;
+  --cream: #f7f4ef;
+  --ink: #2c2c2c;
+  --ink-soft: #5a5a5a;
+  --ink-muted: #9a9a9a;
+  --white: #ffffff;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(44,44,44,0.07);
+  --shadow-hover: 0 12px 40px rgba(44,44,44,0.13);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse 80% 60% at 15% 10%,rgba(143,168,151,0.15) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 85% 85%,rgba(196,168,130,0.12) 0%,transparent 55%);pointer-events:none;z-index:0;}
+
+/* ── EMAIL SIGNUP ── */
+.signup-section{max-width:600px;margin:0 auto 72px;padding:0 24px;}
+.signup-box{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:36px 40px;text-align:center;position:relative;overflow:hidden;}
+.signup-box::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(143,168,151,0.12) 0%,transparent 70%);pointer-events:none;}
+.signup-box::after{content:'';position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(196,168,130,0.1) 0%,transparent 70%);pointer-events:none;}
+.signup-icon{font-size:28px;margin-bottom:12px;}
+.signup-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--ink);margin-bottom:8px;}
+.signup-title em{font-style:italic;color:var(--sage);}
+.signup-desc{font-size:13.5px;font-weight:300;color:var(--ink-soft);line-height:1.65;margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto;}
+.signup-form{display:flex;gap:10px;max-width:420px;margin:0 auto;}
+.signup-input{flex:1;background:var(--cream);border:1px solid var(--sage-light);border-radius:10px;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--ink);outline:none;transition:border-color .2s;}
+.signup-input:focus{border-color:var(--sage);background:var(--white);}
+.signup-input::placeholder{color:var(--ink-muted);}
+.signup-btn{background:var(--ink);color:var(--white);border:none;border-radius:10px;padding:12px 22px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap;display:flex;align-items:center;gap:7px;}
+.signup-btn:hover{background:var(--sage);transform:scale(1.02);}
+.signup-note{font-size:11px;color:var(--ink-muted);margin-top:14px;font-weight:300;}
+.signup-success{display:none;align-items:center;justify-content:center;gap:10px;background:var(--sage-pale);border-radius:10px;padding:14px 20px;color:var(--sage);font-size:14px;font-weight:400;margin-top:16px;}
+.signup-success.show{display:flex;}
+@media(max-width:500px){.signup-form{flex-direction:column;}.signup-box{padding:28px 22px;}}
+
+.clickmax-banner{background:var(--ink);color:var(--cream);text-align:center;padding:10px 24px;font-size:12px;font-weight:400;letter-spacing:0.04em;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;}
+.clickmax-badge{background:var(--sage);color:var(--white);font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+
+/* ── NAV ── */
+.topnav{position:sticky;top:0;z-index:100;background:rgba(247,244,239,0.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--sage-pale);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:62px;gap:16px;}
+.nav-brand{display:flex;align-items:center;gap:10px;cursor:pointer;flex-shrink:0;text-decoration:none;border:none;background:none;font-family:'DM Sans',sans-serif;}
+.nav-brand-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:400;color:var(--ink);line-height:1.1;}
+.nav-brand-text em{font-style:italic;color:var(--sage);}
+.nav-links{display:flex;align-items:center;gap:2px;flex-wrap:wrap;}
+.nav-link{font-size:12.5px;font-weight:400;color:var(--ink-muted);padding:6px 11px;border-radius:8px;cursor:pointer;transition:background .18s,color .18s;white-space:nowrap;border:none;background:none;font-family:'DM Sans',sans-serif;}
+.nav-link:hover{background:var(--sage-pale);color:var(--ink);}
+.nav-link.active{background:var(--sage-pale);color:var(--sage);font-weight:500;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--ink);border-radius:2px;transition:all .2s;}
+.mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;background:var(--cream);border-bottom:1px solid var(--sage-pale);z-index:99;padding:16px 24px 24px;flex-direction:column;gap:2px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu .nav-link{text-align:left;padding:10px 14px;}
+
+/* ── PAGES ── */
+.page{display:none;position:relative;z-index:1;}
+.page.active{display:block;}
+
+/* ── PAGE: AGENDA ── */
+.page-header{text-align:center;padding:64px 24px 44px;}
+.header-eyebrow{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.header-eyebrow::before,.header-eyebrow::after{content:'';display:block;width:36px;height:1px;background:var(--sage-light);}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,6vw,68px);font-weight:300;line-height:1.08;color:var(--ink);}
+.page-title em{font-style:italic;color:var(--sage);}
+.page-subtitle{margin:18px auto 0;font-size:15px;font-weight:300;color:var(--ink-soft);max-width:440px;line-height:1.7;}
+.header-divider{width:48px;height:2px;background:linear-gradient(90deg,var(--sage),var(--clay));margin:28px auto 0;border-radius:2px;}
+.stats-bar{display:flex;justify-content:center;max-width:480px;margin:0 auto 52px;padding:0 24px;}
+.stat{flex:1;text-align:center;padding:18px 12px;border-top:1px solid var(--sage-light);border-bottom:1px solid var(--sage-light);}
+.stat+.stat{border-left:1px solid var(--sage-light);}
+.stat-number{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--sage);line-height:1;}
+.stat-label{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted);margin-top:4px;}
+.grid-wrapper{max-width:1080px;margin:0 auto;padding:0 24px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:transform .35s cubic-bezier(.22,.68,0,1.2),box-shadow .35s;display:flex;flex-direction:column;opacity:0;transform:translateY(20px);animation:fadeUp .5s cubic-bezier(.22,.68,0,1.2) forwards;}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+.card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.11s}.card:nth-child(3){animation-delay:.17s}.card:nth-child(4){animation-delay:.23s}.card:nth-child(5){animation-delay:.29s}.card:nth-child(6){animation-delay:.35s}.card:nth-child(7){animation-delay:.41s}.card:nth-child(8){animation-delay:.47s}
+.card-header{padding:20px 22px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.card-number{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;line-height:1;color:var(--sage-light);flex-shrink:0;}
+.card-badge{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:20px;white-space:nowrap;margin-top:4px;}
+.card-badge.status-upcoming{background:var(--clay-light);color:#8a6840;}
+.card-badge.status-done{background:var(--sage-pale);color:var(--sage);}
+.card-body{padding:0 22px 18px;flex:1;display:flex;flex-direction:column;gap:10px;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:var(--ink);line-height:1.3;}
+.card-description{font-size:13px;font-weight:300;color:var(--ink-soft);line-height:1.65;flex:1;}
+.card-meta{display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px solid var(--sage-pale);}
+.meta-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-muted);}
+.meta-icon{width:15px;height:15px;flex-shrink:0;opacity:.65;}
+.card-footer{padding:0 22px 20px;}
+.meet-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px 16px;background:var(--ink);color:var(--white);border-radius:10px;text-decoration:none;font-size:12.5px;font-weight:500;letter-spacing:.03em;transition:background .2s,transform .15s;}
+.meet-btn:hover{background:var(--sage);transform:scale(1.02);}
+
+/* ── INNER PAGES ── */
+.inner-page{max-width:760px;margin:0 auto;padding:64px 24px 96px;}
+.inner-eyebrow{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);margin-bottom:12px;}
+.inner-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,52px);font-weight:300;line-height:1.1;color:var(--ink);}
+.inner-title em{font-style:italic;color:var(--sage);}
+.inner-divider{width:44px;height:2px;background:linear-gradient(90deg,var(--sage),var(--clay));margin:24px 0 36px;border-radius:2px;}
+.inner-lead{font-size:16px;font-weight:300;color:var(--ink-soft);line-height:1.75;margin-bottom:36px;}
+.inner-section{margin-bottom:36px;}
+.inner-section h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--ink);margin-bottom:12px;}
+.inner-section p,.inner-section li{font-size:14.5px;font-weight:300;color:var(--ink-soft);line-height:1.8;}
+.inner-section ul{padding-left:20px;display:flex;flex-direction:column;gap:6px;}
+.inner-section li::marker{color:var(--sage);}
+.info-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 30px;margin-bottom:18px;}
+.info-card h4{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:var(--ink);margin-bottom:8px;}
+.info-card p{font-size:13.5px;font-weight:300;color:var(--ink-soft);line-height:1.7;}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.tag{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:20px;background:var(--sage-pale);color:var(--sage);}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--sage-pale);}
+.faq-q{font-size:14.5px;font-weight:500;color:var(--ink);padding:18px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;list-style:none;}
+.faq-q::-webkit-details-marker{display:none;}
+.faq-icon{width:18px;height:18px;flex-shrink:0;color:var(--sage);transition:transform .2s;}
+details[open] .faq-icon{transform:rotate(45deg);}
+.faq-a{font-size:13.5px;font-weight:300;color:var(--ink-soft);line-height:1.75;padding-bottom:18px;}
+
+/* CONTACT */
+.contact-form{display:flex;flex-direction:column;gap:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group label{font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);}
+.form-group input,.form-group textarea,.form-group select{background:var(--white);border:1px solid var(--sage-light);border-radius:10px;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--ink);outline:none;transition:border-color .2s;resize:vertical;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--sage);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--white);border:none;border-radius:10px;padding:13px 28px;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;width:fit-content;}
+.btn-primary:hover{background:var(--sage);transform:scale(1.02);}
+
+/* LEGAL */
+.legal-date{font-size:11.5px;color:var(--ink-muted);margin-bottom:32px;letter-spacing:.05em;}
+.legal-section{margin-bottom:32px;}
+.legal-section h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--ink);margin-bottom:10px;}
+.legal-section p{font-size:13.5px;font-weight:300;color:var(--ink-soft);line-height:1.8;margin-bottom:8px;}
+
+/* ACCESSIBILITY */
+.access-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:8px;}
+.access-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;}
+.access-card .icon{font-size:26px;margin-bottom:10px;}
+.access-card h4{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:6px;}
+.access-card p{font-size:12.5px;font-weight:300;color:var(--ink-soft);line-height:1.65;}
+
+/* INSTRUCTORS */
+.instructor-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;display:flex;gap:22px;align-items:flex-start;margin-bottom:20px;}
+.instructor-avatar{width:72px;height:72px;border-radius:50%;background:var(--sage-pale);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.instructor-info h4{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--ink);margin-bottom:4px;}
+.instructor-info .role{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:10px;}
+.instructor-info p{font-size:13.5px;font-weight:300;color:var(--ink-soft);line-height:1.7;}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:1;background:var(--ink);padding:56px 24px 0;}
+.footer-inner{max-width:1080px;margin:0 auto;display:flex;gap:48px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;padding-bottom:48px;}
+.footer-brand{display:flex;align-items:center;gap:18px;flex-shrink:0;cursor:pointer;border:none;background:none;}
+.footer-logo{flex-shrink:0;filter:drop-shadow(0 2px 8px rgba(143,168,151,0.25));}
+.footer-brand-text{display:flex;flex-direction:column;gap:2px;}
+.footer-brand-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;color:var(--cream);line-height:1.1;display:block;}
+.footer-brand-name.italic{font-style:italic;color:var(--sage-light);}
+.footer-brand-tagline{font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted);margin-top:6px;}
+.footer-links{display:flex;gap:40px;flex-wrap:wrap;}
+.footer-links-col{display:flex;flex-direction:column;gap:10px;min-width:130px;}
+.footer-links-title{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);margin-bottom:2px;}
+.footer-links-col button{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:300;color:#8a8a8a;background:none;border:none;cursor:pointer;text-align:left;padding:0;transition:color .2s;}
+.footer-links-col button:hover{color:var(--sage-light);}
+.footer-divider{max-width:1080px;margin:0 auto;height:1px;background:rgba(255,255,255,0.07);}
+.footer-bottom{max-width:1080px;margin:0 auto;padding:20px 0 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-bottom p{font-size:12px;color:#666;font-weight:300;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  .topnav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .grid-wrapper{grid-template-columns:1fr;}
+  .footer-inner{flex-direction:column;gap:32px;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+  .form-row{grid-template-columns:1fr;}
+  .instructor-card{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- CLICKMAX ACCESS BANNER -->
+<div class="clickmax-banner">
+  <span class="clickmax-badge">Acesso exclusivo</span>
+  Este conteúdo é destinado exclusivamente a participantes que realizaram a compra através de uma <strong style="color:var(--sage-light);margin:0 3px;">plataforma parceira autorizada</strong>. O compartilhamento não autorizado é proibido.
+</div>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <button class="nav-brand" onclick="showPage('agenda')">
+    <svg viewBox="0 0 40 40" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 36C20 36 6 27 6 16C6 9 12 4 20 4C28 4 34 9 34 16C34 27 20 36 20 36Z" fill="#8fa897" opacity="0.18"/>
+      <path d="M20 35C20 35 7.5 26.5 7.5 16C7.5 9.5 13 5 20 5C27 5 32.5 9.5 32.5 16C32.5 26.5 20 35 20 35Z" stroke="#8fa897" stroke-width="1.2" fill="none"/>
+      <path d="M20 33L20 7" stroke="#8fa897" stroke-width="1" stroke-linecap="round"/>
+      <path d="M20 17C17.5 14.5 11.5 13.5 9 12" stroke="#8fa897" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+      <path d="M20 17C22.5 14.5 28.5 13.5 31 12" stroke="#8fa897" stroke-width="0.8" stroke-linecap="round" opacity="0.7"/>
+      <path d="M20 22C17 19.5 11 19 8.5 18" stroke="#8fa897" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
+      <path d="M20 22C23 19.5 29 19 31.5 18" stroke="#8fa897" stroke-width="0.8" stroke-linecap="round" opacity="0.5"/>
+    </svg>
+    <span class="nav-brand-text">Superando <em>a Ansiedade</em></span>
+  </button>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('agenda')">Agenda</button>
+    <button class="nav-link" onclick="showPage('sobre')">Sobre o Curso</button>
+    <button class="nav-link" onclick="showPage('metodologia')">Metodologia</button>
+    <button class="nav-link" onclick="showPage('instrutores')">Instrutores</button>
+    <button class="nav-link" onclick="showPage('faq')">Dúvidas</button>
+    <button class="nav-link" onclick="showPage('contato')">Contato</button>
+    <button class="nav-link" onclick="showPage('acessibilidade')">Acessibilidade</button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="nav-link" onclick="showPage('agenda');toggleMenu()">Agenda</button>
+  <button class="nav-link" onclick="showPage('sobre');toggleMenu()">Sobre o Curso</button>
+  <button class="nav-link" onclick="showPage('metodologia');toggleMenu()">Metodologia</button>
+  <button class="nav-link" onclick="showPage('instrutores');toggleMenu()">Instrutores</button>
+  <button class="nav-link" onclick="showPage('faq');toggleMenu()">Dúvidas Frequentes</button>
+  <button class="nav-link" onclick="showPage('contato');toggleMenu()">Contato</button>
+  <button class="nav-link" onclick="showPage('acessibilidade');toggleMenu()">Acessibilidade</button>
+  <button class="nav-link" onclick="showPage('privacidade');toggleMenu()">Política de Privacidade</button>
+  <button class="nav-link" onclick="showPage('termos');toggleMenu()">Termos de Uso</button>
+  <button class="nav-link" onclick="showPage('acesso');toggleMenu()">Política de Acesso</button>
+</div>
+
+<!-- PAGE: AGENDA -->
+<div class="page active" id="page-agenda">
+  <div class="page-header">
+    <div class="header-eyebrow">Programa Completo</div>
+    <h1 class="page-title">Superando<br><em>a Ansiedade</em></h1>
+    <p class="page-subtitle">Oito encontros ao vivo pelo Google Meet para transformar sua relação com a ansiedade e encontrar mais leveza no dia a dia.</p>
+    <div class="header-divider"></div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-number">8</div><div class="stat-label">Aulas</div></div>
+    <div class="stat"><div class="stat-number">Ao vivo</div><div class="stat-label">Formato</div></div>
+    <div class="stat"><div class="stat-number">Meet</div><div class="stat-label">Plataforma</div></div>
+  </div>
+  <div class="grid-wrapper" id="cards"></div>
+
+  <!-- EMAIL SIGNUP -->
+  <div class="signup-section">
+    <div class="signup-box">
+      <div class="signup-icon">🌿</div>
+      <h2 class="signup-title">Receba as <em>atualizações</em> do curso</h2>
+      <p class="signup-desc">Cadastre seu e-mail e fique por dentro de novidades, lembretes de aulas e materiais exclusivos do programa.</p>
+      <div class="signup-form">
+        <input class="signup-input" type="email" id="signupEmail" placeholder="seu@email.com">
+        <button class="signup-btn" onclick="handleSignup()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7.5 2 13 7l-5.5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Cadastrar
+        </button>
+      </div>
+      <div class="signup-success" id="signupSuccess">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="#8fa897" stroke-width="1.3"/><path d="M5.5 9l2.5 2.5 4.5-4.5" stroke="#8fa897" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        E-mail cadastrado com sucesso! Você receberá as atualizações em breve.
+      </div>
+      <p class="signup-note">Seus dados estão seguros. Nunca enviaremos spam. ✦</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: SOBRE O CURSO -->
+<div class="page" id="page-sobre">
+  <div class="inner-page">
+    <div class="inner-eyebrow">Programa</div>
+    <h1 class="inner-title">Sobre o <em>Curso</em></h1>
+    <div class="inner-divider"></div>
+    <p class="inner-lead">Superando a Ansiedade é um programa de 8 encontros ao vivo, disponível exclusivamente para participantes que realizaram a compra pela plataforma parceira. O curso foi criado para quem deseja compreender, acolher e transformar sua relação com a ansiedade de maneira gentil e prática.</p>
+    <div class="inner-section">
+      <h3>Para quem é este curso?</h3>
+      <p>Este programa foi desenhado para pessoas que sentem que a ansiedade limita o dia a dia — seja no trabalho, nas relações ou nos momentos de descanso. Não é necessário nenhum conhecimento prévio em psicologia ou saúde mental.</p>
+    </div>
+    <div class="inner-section">
+      <h3>O que você vai aprender</h3>
+      <ul>
+        <li>Entender os mecanismos biológicos e psicológicos da ansiedade</li>
+        <li>Identificar seus gatilhos pessoais e padrões de resposta</li>
+        <li>Aplicar técnicas de respiração, regulação e presença</li>
+        <li>Questionar pensamentos automáticos que alimentam o ciclo ansioso</li>
+        <li>Construir rotinas e hábitos que promovem equilíbrio emocional</li>
+        <li>Desenvolver ferramentas para situações sociais desafiadoras</li>
+      </ul>
+    </div>
+    <div class="inner-section">
+      <h3>Formato</h3>
+      <div class="info-card">
+        <h4>Encontros ao vivo pelo Google Meet</h4>
+        <p>Cada aula tem duração aproximada de 90 minutos, com espaço para perguntas, exercícios práticos e troca em grupo. Os encontros são gravados e ficam disponíveis por 30 dias para os participantes.</p>
+        <div class="tag-row">
+          <span class="tag">8 aulas</span>
+          <span class="tag">Ao vivo</span>
+          <span class="tag">Google Meet</span>
+          <span class="tag">Gravações disponíveis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: METODOLOGIA -->
+<div class="page" id="page-metodologia">
+  <div class="inner-page">
+    <div class="inner-eyebrow">Abordagem</div>
+    <h1 class="inner-title"><em>Metodologia</em></h1>
+    <div class="inner-divider"></div>
+    <p class="inner-lead">Nossa abordagem combina evidências científicas com práticas acessíveis, criando um espaço seguro para cada pessoa avançar no seu próprio ritmo.</p>
+    <div class="inner-section"><h3>Pilares do programa</h3></div>
+    <div class="info-card">
+      <h4>🧠 Psicoeducação</h4>
+      <p>Começamos por entender: o que é a ansiedade, como funciona no cérebro e por que ela existe. Conhecimento é o primeiro passo para a mudança.</p>
+    </div>
+    <div class="info-card">
+      <h4>🌬️ Regulação somática</h4>
+      <p>Técnicas de respiração, movimento e ancoragem corporal que ativam o sistema nervoso parassimpático e promovem calma de forma imediata.</p>
+    </div>
+    <div class="info-card">
+      <h4>💭 Reestruturação cognitiva</h4>
+      <p>Baseada na Terapia Cognitivo-Comportamental (TCC), trabalhamos a identificação e questionamento dos pensamentos que perpetuam a ansiedade.</p>
+    </div>
+    <div class="info-card">
+      <h4>🌱 Construção de hábitos</h4>
+      <p>Transformações duradouras acontecem pela consistência. Ajudamos você a criar rotinas pequenas e sustentáveis que constroem bem-estar ao longo do tempo.</p>
+    </div>
+    <div class="inner-section" style="margin-top:32px">
+      <h3>Base científica</h3>
+      <p>O conteúdo está fundamentado em pesquisas de neurociência, psicologia positiva e práticas contemplativas validadas clinicamente — sempre traduzidas para uma linguagem acessível e humana.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: INSTRUTORES -->
+<div class="page" id="page-instrutores">
+  <div class="inner-page">
+    <div class="inner-eyebrow">Quem vai guiar você</div>
+    <h1 class="inner-title"><em>Instrutores</em></h1>
+    <div class="inner-divider"></div>
+    <p class="inner-lead">Conheça quem vai guiar você ao longo das 8 semanas do programa.</p>
+    <div class="instructor-card">
+      <div class="instructor-avatar">
+        <svg viewBox="0 0 36 36" fill="none" width="36" height="36">
+          <circle cx="18" cy="13" r="7" stroke="#8fa897" stroke-width="1.3"/>
+          <path d="M4 34C4 26 10 20 18 20C26 20 32 26 32 34" stroke="#8fa897" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="instructor-info">
+        <h4>Levani Alves</h4>
+        <div class="role">Mentor · Superando a Ansiedade</div>
+        <p>Apaixonado por desenvolvimento humano e bem-estar emocional, Levani criou o programa Superando a Ansiedade para ajudar pessoas a transformarem sua relação com a ansiedade de forma prática e acolhedora.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: FAQ -->
+<div class="page" id="page-faq">
+  <div class="inner-page">
+    <div class="inner-eyebrow">Suporte</div>
+    <h1 class="inner-title">Dúvidas <em>Frequentes</em></h1>
+    <div class="inner-divider"></div>
+    <details class="faq-item">
+      <summary class="faq-q">As aulas são ao vivo ou gravadas? <svg class="faq-icon" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <p class="faq-a">As aulas acontecem ao vivo pelo Google Meet. Caso não possa participar em algum encontro, a gravação fica disponível por 30 dias na plataforma.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Preciso ter experiência com terapia para participar? <svg class="faq-icon" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <p class="faq-a">Não. O curso foi desenhado para qualquer pessoa que queira entender melhor a ansiedade, independentemente de histórico terapêutico. É um espaço de aprendizado e autoconhecimento.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Quanto tempo dura cada aula? <svg class="faq-icon" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <p class="faq-a">Cada encontro tem duração aproximada de 90 minutos, incluindo teoria, exercícios práticos e espaço para perguntas.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">O curso substitui acompanhamento psicológico individual? <svg class="faq-icon" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <p class="faq-a">Não. O programa é educativo e de desenvolvimento pessoal. Para casos de transtorno de ansiedade diagnosticado ou sofrimento intenso, recomendamos acompanhamento individual com profissional de saúde mental.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Como acesso os links das aulas? <svg class="faq-icon" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <p class="faq-a">Os links do Google Meet estão disponíveis nos cards de cada aula na página Agenda. Você também receberá um lembrete por e-mail antes de cada encontro.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Há material de apoio complementar? <svg class="faq-icon" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <p class="faq-a">Sim. Ao final de cada aula, disponibilizamos um resumo em PDF com os principais conceitos e exercícios práticos para você aplicar durante a semana.</p>
+    </details>
+    <details class="faq-item">
+      <summary class="faq-q">Posso fazer perguntas durante as aulas? <svg class="faq-icon" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></summary>
+      <p class="faq-a">Sim! Reservamos espaço ao final de cada encontro para perguntas e troca com o grupo. Você pode participar com microfone ativo ou pelo chat do Google Meet.</p>
+    </details>
+  </div>
+</div>
+
+<!-- PAGE: CONTATO -->
+<div class="page" id="page-contato">
+  <div class="inner-page">
+    <div class="inner-eyebrow">Fale conosco</div>
+    <h1 class="inner-title"><em>Contato</em></h1>
+    <div class="inner-divider"></div>
+    <p class="inner-lead">Tem alguma dúvida antes de participar? Preencha o formulário abaixo e retornaremos em até 1 dia útil.</p>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group"><label>Nome</label><input type="text" placeholder="Seu nome completo"></div>
+        <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
+      </div>
+      <div class="form-group">
+        <label>Assunto</label>
+        <select>
+          <option value="">Selecione um assunto</option>
+          <option>Dúvida sobre o curso</option>
+          <option>Problema técnico</option>
+          <option>Informações sobre inscrição</option>
+          <option>Outro</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Mensagem</label><textarea rows="5" placeholder="Descreva sua dúvida ou mensagem..."></textarea></div>
+      <button class="btn-primary">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1 7.5h13M8.5 2 14 7.5 8.5 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Enviar mensagem
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: ACESSIBILIDADE -->
+<div class="page" id="page-acessibilidade">
+  <div class="inner-page">
+    <div class="inner-eyebrow">Inclusão</div>
+    <h1 class="inner-title"><em>Acessibilidade</em></h1>
+    <div class="inner-divider"></div>
+    <p class="inner-lead">Acreditamos que o cuidado com a saúde mental deve ser acessível a todos. Confira os recursos disponíveis no programa.</p>
+    <div class="access-grid">
+      <div class="access-card"><div class="icon">🎙️</div><h4>Legenda em tempo real</h4><p>As aulas ao vivo contam com legendas automáticas pelo Google Meet, ativáveis a qualquer momento.</p></div>
+      <div class="access-card"><div class="icon">🎧</div><h4>Áudio claro</h4><p>Utilizamos microfones de alta qualidade para garantir clareza na comunicação oral em todos os encontros.</p></div>
+      <div class="access-card"><div class="icon">📄</div><h4>Material em PDF</h4><p>Resumos acessíveis após cada aula, compatíveis com leitores de tela e fontes ajustáveis.</p></div>
+      <div class="access-card"><div class="icon">🕐</div><h4>Gravações disponíveis</h4><p>Assista novamente no seu próprio ritmo, podendo pausar e rever quantas vezes precisar.</p></div>
+      <div class="access-card"><div class="icon">💬</div><h4>Participação por chat</h4><p>Não é necessário falar ao microfone. Você pode interagir inteiramente pelo chat do Google Meet.</p></div>
+      <div class="access-card"><div class="icon">✉️</div><h4>Suporte individual</h4><p>Necessita de alguma adaptação específica? Entre em contato e faremos o possível para atender você.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: POLÍTICA DE PRIVACIDADE -->
+<div class="page" id="page-privacidade">
+  <div class="inner-page">
+    <div class="inner-eyebrow">Legal</div>
+    <h1 class="inner-title">Política de <em>Privacidade</em></h1>
+    <div class="inner-divider"></div>
+    <p class="legal-date">Última atualização: Janeiro de 2025</p>
+    <div class="legal-section"><h3>1. Coleta de dados</h3><p>Coletamos apenas as informações necessárias para a prestação do serviço: nome, endereço de e-mail e dados de acesso à plataforma. Não coletamos dados sensíveis de saúde mental sem consentimento explícito.</p></div>
+    <div class="legal-section"><h3>2. Uso das informações</h3><p>Os dados coletados são utilizados exclusivamente para: (a) envio de comunicações sobre as aulas e o programa; (b) suporte ao participante; (c) melhoria da experiência do usuário. Não vendemos nem compartilhamos seus dados com terceiros.</p></div>
+    <div class="legal-section"><h3>3. Gravações das aulas</h3><p>Os encontros ao vivo são gravados para disponibilização posterior aos participantes. Ao ingressar na aula, você concorda com a gravação de áudio e vídeo. As gravações não são compartilhadas publicamente.</p></div>
+    <div class="legal-section"><h3>4. Retenção de dados</h3><p>Seus dados são mantidos enquanto você for participante ativo do programa. Após a conclusão do curso, os dados são retidos por até 2 anos e depois excluídos de forma segura.</p></div>
+    <div class="legal-section"><h3>5. Seus direitos (LGPD)</h3><p>Em conformidade com a Lei nº 13.709/2018, você tem direito a acessar, corrigir ou solicitar a exclusão dos seus dados, além de revogar consentimentos a qualquer momento. Para exercer esses direitos, entre em contato conosco.</p></div>
+    <div class="legal-section"><h3>6. Cookies</h3><p>Esta página utiliza apenas cookies técnicos essenciais para o funcionamento. Não utilizamos cookies de rastreamento publicitário.</p></div>
+  </div>
+</div>
+
+<!-- PAGE: TERMOS DE USO -->
+<div class="page" id="page-termos">
+  <div class="inner-page">
+    <div class="inner-eyebrow">Legal</div>
+    <h1 class="inner-title">Termos de <em>Uso</em></h1>
+    <div class="inner-divider"></div>
+    <p class="legal-date">Última atualização: Janeiro de 2025</p>
+    <div class="legal-section"><h3>1. Aceitação dos termos</h3><p>Ao adquirir e acessar o programa Superando a Ansiedade por meio da plataforma parceira, você declara ter lido, compreendido e concordado com estes Termos de Uso.</p></div>
+    <div class="legal-section"><h3>2. Natureza do programa</h3><p>O curso Superando a Ansiedade é um programa educativo e de desenvolvimento pessoal. O conteúdo apresentado não constitui psicoterapia, diagnóstico clínico ou prescrição médica. Para tratamento de transtornos diagnosticados, consulte um profissional de saúde habilitado.</p></div>
+    <div class="legal-section"><h3>3. Uso do material</h3><p>Todo o conteúdo do programa — incluindo gravações, PDFs, apresentações e materiais complementares — é protegido por direitos autorais. É proibida a reprodução, distribuição ou comercialização sem autorização prévia e por escrito.</p></div>
+    <div class="legal-section"><h3>4. Conduta nos encontros</h3><p>Esperamos que todos os participantes mantenham um ambiente respeitoso e acolhedor. Comportamentos desrespeitosos ou que perturbem o andamento das aulas poderão resultar no cancelamento do acesso ao programa.</p></div>
+    <div class="legal-section"><h3>5. Alterações no programa</h3><p>Reservamo-nos o direito de alterar datas, horários ou conteúdo das aulas mediante comunicação prévia aos participantes com no mínimo 48 horas de antecedência.</p></div>
+    <div class="legal-section"><h3>6. Limitação de responsabilidade</h3><p>Os organizadores não se responsabilizam por falhas técnicas de conexão à internet, problemas na plataforma Google Meet ou quaisquer outros fatores externos que possam impedir a participação nas aulas ao vivo.</p></div>
+  </div>
+</div>
+
+<!-- PAGE: POLÍTICA DE ACESSO -->
+<div class="page" id="page-acesso">
+  <div class="inner-page">
+    <div class="inner-eyebrow">Legal</div>
+    <h1 class="inner-title">Política de <em>Acesso</em></h1>
+    <div class="inner-divider"></div>
+    <p class="legal-date">Última atualização: Janeiro de 2025</p>
+    <div class="legal-section"><h3>1. Acesso às aulas ao vivo</h3><p>O acesso a este site e ao seu conteúdo é restrito a participantes que realizaram a compra exclusivamente pela plataforma parceira. O link de acesso ao Google Meet é pessoal e intransferível. O compartilhamento não autorizado pode resultar no cancelamento imediato do acesso.</p></div>
+    <div class="legal-section"><h3>2. Gravações</h3><p>As gravações das aulas ficam disponíveis por 30 dias após cada encontro, exclusivamente para participantes inscritos. O download ou redistribuição das gravações é estritamente proibido.</p></div>
+    <div class="legal-section"><h3>3. Número de dispositivos</h3><p>O acesso é permitido para uso pessoal em um único dispositivo por sessão. Não é permitido o acesso simultâneo com a mesma conta em múltiplos dispositivos.</p></div>
+    <div class="legal-section"><h3>4. Cancelamento e reembolso</h3><p>O cancelamento da compra e eventuais solicitações de reembolso são processados exclusivamente pela plataforma parceira, seguindo as políticas e prazos estabelecidos por ela. Para solicitar o cancelamento, o participante deve acessar diretamente a plataforma parceira e seguir o procedimento indicado na plataforma. O acesso ao conteúdo do curso será encerrado após a confirmação do cancelamento pela plataforma parceira.</p></div>
+    <div class="legal-section"><h3>5. Requisitos técnicos</h3><p>Para participar das aulas ao vivo é necessário: conexão estável com a internet (mínimo 5 Mbps), dispositivo com câmera e microfone (opcional para participação ativa), e uma conta Google para acesso ao Google Meet.</p></div>
+    <div class="legal-section"><h3>6. Suporte técnico</h3><p>Em caso de dificuldades técnicas, entre em contato conosco pelo formulário de Contato com no mínimo 24 horas de antecedência à aula. Faremos o melhor para resolver o problema em tempo hábil.</p></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <button class="footer-brand" onclick="showPage('agenda')">
+      <div class="footer-logo">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="52" height="52">
+          <path d="M32 58C32 58 10 44 10 26C10 14 20 6 32 6C44 6 54 14 54 26C54 44 32 58 32 58Z" fill="#8fa897" opacity="0.18"/>
+          <path d="M32 56C32 56 12 43 12 26C12 15 21 8 32 8C43 8 52 15 52 26C52 43 32 56 32 56Z" stroke="#8fa897" stroke-width="1.5" fill="none"/>
+          <path d="M32 54C32 54 32 20 32 10" stroke="#8fa897" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M32 28C28 24 18 22 14 20" stroke="#8fa897" stroke-width="0.9" stroke-linecap="round" opacity="0.7"/>
+          <path d="M32 28C36 24 46 22 50 20" stroke="#8fa897" stroke-width="0.9" stroke-linecap="round" opacity="0.7"/>
+          <path d="M32 36C27 32 17 31 13 30" stroke="#8fa897" stroke-width="0.9" stroke-linecap="round" opacity="0.5"/>
+          <path d="M32 36C37 32 47 31 51 30" stroke="#8fa897" stroke-width="0.9" stroke-linecap="round" opacity="0.5"/>
+          <path d="M32 44C28 41 20 40 16 39" stroke="#8fa897" stroke-width="0.9" stroke-linecap="round" opacity="0.35"/>
+          <path d="M32 44C36 41 44 40 48 39" stroke="#8fa897" stroke-width="0.9" stroke-linecap="round" opacity="0.35"/>
+          <path d="M32 8C32 8 25 5 22 9C19 13 23 17 32 14C41 17 45 13 42 9C39 5 32 8 32 8Z" stroke="#c4a882" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+      <div class="footer-brand-text">
+        <span class="footer-brand-name">Superando</span>
+        <span class="footer-brand-name italic">a Ansiedade</span>
+        <span class="footer-brand-tagline">Encontros ao vivo · Google Meet</span>
+      </div>
+    </button>
+    <div class="footer-links">
+      <div class="footer-links-col">
+        <span class="footer-links-title">Programa</span>
+        <button onclick="showPage('sobre')">Sobre o Curso</button>
+        <button onclick="showPage('metodologia')">Metodologia</button>
+        <button onclick="showPage('instrutores')">Instrutores</button>
+      </div>
+      <div class="footer-links-col">
+        <span class="footer-links-title">Suporte</span>
+        <button onclick="showPage('faq')">Dúvidas Frequentes</button>
+        <button onclick="showPage('contato')">Contato</button>
+        <button onclick="showPage('acessibilidade')">Acessibilidade</button>
+      </div>
+      <div class="footer-links-col">
+        <span class="footer-links-title">Legal</span>
+        <button onclick="showPage('privacidade')">Política de Privacidade</button>
+        <button onclick="showPage('termos')">Termos de Uso</button>
+        <button onclick="showPage('acesso')">Política de Acesso</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> Superando a Ansiedade · Administrado por <strong style="color:#888;">Levani A.</strong> · Acesso exclusivo via <strong style="color:var(--sage);">plataforma autorizada</strong></p>
+    <p>Feito com cuidado para a sua jornada 🌿</p>
+  </div>
+</footer>
+
+<script>
+function handleSignup() {
+  const input = document.getElementById('signupEmail');
+  const success = document.getElementById('signupSuccess');
+  const email = input.value.trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    input.style.borderColor = '#c4a882';
+    input.focus();
+    setTimeout(() => input.style.borderColor = '', 1500);
+    return;
+  }
+  input.parentElement.style.display = 'none';
+  success.classList.add('show');
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  const btns = document.querySelectorAll('.nav-link');
+  btns.forEach(b => { if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'")) b.classList.add('active'); });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// EDITE AQUI: dados das 8 aulas
+const aulas = [
+  { titulo: "O que é a ansiedade?", descricao: "Entendemos juntos o que é a ansiedade, seus mecanismos biológicos e como ela se manifesta no nosso corpo e mente.", data: "Sexta-feira, 17/04", horario: "19h00", link: "https://meet.google.com/seu-link-aqui", status: "upcoming" },
+  { titulo: "Identificando os gatilhos", descricao: "Aprenda a mapear as situações, pensamentos e ambientes que disparam sua ansiedade para antecipar e responder melhor.", data: "Sexta-feira, 24/04", horario: "19h00", link: "https://meet.google.com/seu-link-aqui", status: "upcoming" },
+  { titulo: "Respiração e regulação", descricao: "Técnicas práticas de respiração e regulação do sistema nervoso que você pode usar em qualquer momento do dia.", data: "Sexta-feira, 01/05", horario: "19h00", link: "https://meet.google.com/seu-link-aqui", status: "upcoming" },
+  { titulo: "Pensamentos automáticos", descricao: "Como identificar e questionar os pensamentos automáticos negativos que alimentam o ciclo da ansiedade.", data: "Sexta-feira, 08/05", horario: "19h00", link: "https://meet.google.com/seu-link-aqui", status: "upcoming" },
+  { titulo: "O papel do corpo", descricao: "Movimento, postura e hábitos físicos: como o corpo influencia e pode liberar a tensão acumulada pela ansiedade.", data: "Sexta-feira, 15/05", horario: "19h00", link: "https://meet.google.com/seu-link-aqui", status: "upcoming" },
+  { titulo: "Relacionamentos e ansiedade social", descricao: "Como a ansiedade impacta nossas conexões e estratégias para construir relações mais seguras e autênticas.", data: "Sexta-feira, 22/05", horario: "19h00", link: "https://meet.google.com/seu-link-aqui", status: "upcoming" },
+  { titulo: "Rotinas que acalmam", descricao: "Criando hábitos e rotinas diárias que constroem uma base sólida de bem-estar e reduzem a ansiedade crônica.", data: "Sexta-feira, 29/05", horario: "19h00", link: "https://meet.google.com/seu-link-aqui", status: "upcoming" },
+  { titulo: "Integração e caminho à frente", descricao: "Revisamos todo o caminho percorrido e traçamos juntos um plano personalizado para os próximos passos da sua jornada.", data: "Sexta-feira, 05/06", horario: "19h00", link: "https://meet.google.com/seu-link-aqui", status: "upcoming" }
+];
+
+const container = document.getElementById('cards');
+aulas.forEach((aula, i) => {
+  const num = String(i + 1).padStart(2, '0');
+  const badgeLabel = aula.status === 'done' ? 'Realizada' : 'Em breve';
+  const badgeClass = aula.status === 'done' ? 'status-done' : 'status-upcoming';
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="card-header">
+      <div class="card-number">${num}</div>
+      <div class="card-badge ${badgeClass}">${badgeLabel}</div>
+    </div>
+    <div class="card-body">
+      <div class="card-title">${aula.titulo}</div>
+      <div class="card-description">${aula.descricao}</div>
+      <div class="card-meta">
+        <div class="meta-row">
+          <svg class="meta-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M2 6.5h12" stroke="currentColor" stroke-width="1.2"/><path d="M5 2v2M11 2v2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          ${aula.data}
+        </div>
+        <div class="meta-row">
+          <svg class="meta-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 5.5V8l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          ${aula.horario}
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a href="${aula.link}" target="_blank" class="meet-btn">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M10 6.5l4-2.5v8l-4-2.5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        Acessar no Google Meet
+      </a>
+    </div>`;
+  container.appendChild(card);
+});
+</script>
+</body>
+</html>
