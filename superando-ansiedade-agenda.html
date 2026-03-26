@@ -158,6 +158,16 @@ details[open] .faq-icon{transform:rotate(45deg);}
 .instructor-info .role{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);margin-bottom:10px;}
 .instructor-info p{font-size:13.5px;font-weight:300;color:var(--ink-soft);line-height:1.7;}
 
+/* ── CONTACT CONFIRMATION ── */
+.contact-success{display:none;flex-direction:column;align-items:center;text-align:center;padding:48px 32px;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);}
+.contact-success.show{display:flex;}
+.contact-success-icon{width:64px;height:64px;border-radius:50%;background:var(--sage-pale);display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.contact-success-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--ink);margin-bottom:10px;}
+.contact-success-title em{font-style:italic;color:var(--sage);}
+.contact-success-text{font-size:14px;font-weight:300;color:var(--ink-soft);line-height:1.75;max-width:380px;margin-bottom:24px;}
+.contact-success-back{background:none;border:1.5px solid var(--sage-light);border-radius:10px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--sage);cursor:pointer;transition:background .2s;}
+.contact-success-back:hover{background:var(--sage-pale);}
+
 /* ── FOOTER ── */
 footer{position:relative;z-index:1;background:var(--ink);padding:56px 24px 0;}
 .footer-inner{max-width:1080px;margin:0 auto;display:flex;gap:48px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;padding-bottom:48px;}
@@ -200,7 +210,7 @@ footer{position:relative;z-index:1;background:var(--ink);padding:56px 24px 0;}
 <!-- TOP NAV -->
 <nav class="topnav">
   <button class="nav-brand" onclick="showPage('agenda')">
-    <svg viewBox="0 0 40 40" width="30" height="30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 40 40" width="30" height="30" fill="none">
       <path d="M20 36C20 36 6 27 6 16C6 9 12 4 20 4C28 4 34 9 34 16C34 27 20 36 20 36Z" fill="#8fa897" opacity="0.18"/>
       <path d="M20 35C20 35 7.5 26.5 7.5 16C7.5 9.5 13 5 20 5C27 5 32.5 9.5 32.5 16C32.5 26.5 20 35 20 35Z" stroke="#8fa897" stroke-width="1.2" fill="none"/>
       <path d="M20 33L20 7" stroke="#8fa897" stroke-width="1" stroke-linecap="round"/>
@@ -321,22 +331,10 @@ footer{position:relative;z-index:1;background:var(--ink);padding:56px 24px 0;}
     <div class="inner-divider"></div>
     <p class="inner-lead">Nossa abordagem combina evidências científicas com práticas acessíveis, criando um espaço seguro para cada pessoa avançar no seu próprio ritmo.</p>
     <div class="inner-section"><h3>Pilares do programa</h3></div>
-    <div class="info-card">
-      <h4>🧠 Psicoeducação</h4>
-      <p>Começamos por entender: o que é a ansiedade, como funciona no cérebro e por que ela existe. Conhecimento é o primeiro passo para a mudança.</p>
-    </div>
-    <div class="info-card">
-      <h4>🌬️ Regulação somática</h4>
-      <p>Técnicas de respiração, movimento e ancoragem corporal que ativam o sistema nervoso parassimpático e promovem calma de forma imediata.</p>
-    </div>
-    <div class="info-card">
-      <h4>💭 Reestruturação cognitiva</h4>
-      <p>Baseada na Terapia Cognitivo-Comportamental (TCC), trabalhamos a identificação e questionamento dos pensamentos que perpetuam a ansiedade.</p>
-    </div>
-    <div class="info-card">
-      <h4>🌱 Construção de hábitos</h4>
-      <p>Transformações duradouras acontecem pela consistência. Ajudamos você a criar rotinas pequenas e sustentáveis que constroem bem-estar ao longo do tempo.</p>
-    </div>
+    <div class="info-card"><h4>🧠 Psicoeducação</h4><p>Começamos por entender: o que é a ansiedade, como funciona no cérebro e por que ela existe. Conhecimento é o primeiro passo para a mudança.</p></div>
+    <div class="info-card"><h4>🌬️ Regulação somática</h4><p>Técnicas de respiração, movimento e ancoragem corporal que ativam o sistema nervoso parassimpático e promovem calma de forma imediata.</p></div>
+    <div class="info-card"><h4>💭 Reestruturação cognitiva</h4><p>Baseada na Terapia Cognitivo-Comportamental (TCC), trabalhamos a identificação e questionamento dos pensamentos que perpetuam a ansiedade.</p></div>
+    <div class="info-card"><h4>🌱 Construção de hábitos</h4><p>Transformações duradouras acontecem pela consistência. Ajudamos você a criar rotinas pequenas e sustentáveis que constroem bem-estar ao longo do tempo.</p></div>
     <div class="inner-section" style="margin-top:32px">
       <h3>Base científica</h3>
       <p>O conteúdo está fundamentado em pesquisas de neurociência, psicologia positiva e práticas contemplativas validadas clinicamente — sempre traduzidas para uma linguagem acessível e humana.</p>
@@ -411,14 +409,14 @@ footer{position:relative;z-index:1;background:var(--ink);padding:56px 24px 0;}
     <h1 class="inner-title"><em>Contato</em></h1>
     <div class="inner-divider"></div>
     <p class="inner-lead">Tem alguma dúvida antes de participar? Preencha o formulário abaixo e retornaremos em até 1 dia útil.</p>
-    <div class="contact-form">
+    <div class="contact-form" id="contactForm">
       <div class="form-row">
-        <div class="form-group"><label>Nome</label><input type="text" placeholder="Seu nome completo"></div>
-        <div class="form-group"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
+        <div class="form-group"><label>Nome</label><input id="contactName" type="text" placeholder="Seu nome completo"></div>
+        <div class="form-group"><label>E-mail</label><input id="contactEmail" type="email" placeholder="seu@email.com"></div>
       </div>
       <div class="form-group">
         <label>Assunto</label>
-        <select>
+        <select id="contactSubject">
           <option value="">Selecione um assunto</option>
           <option>Dúvida sobre o curso</option>
           <option>Problema técnico</option>
@@ -426,11 +424,22 @@ footer{position:relative;z-index:1;background:var(--ink);padding:56px 24px 0;}
           <option>Outro</option>
         </select>
       </div>
-      <div class="form-group"><label>Mensagem</label><textarea rows="5" placeholder="Descreva sua dúvida ou mensagem..."></textarea></div>
-      <button class="btn-primary">
+      <div class="form-group"><label>Mensagem</label><textarea id="contactMessage" rows="5" placeholder="Descreva sua dúvida ou mensagem..."></textarea></div>
+      <button class="btn-primary" onclick="handleContact()">
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M1 7.5h13M8.5 2 14 7.5 8.5 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Enviar mensagem
       </button>
+    </div>
+    <div class="contact-success" id="contactSuccess">
+      <div class="contact-success-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="11" stroke="#8fa897" stroke-width="1.5"/>
+          <path d="M8.5 14l3.5 3.5 7.5-7.5" stroke="#8fa897" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="contact-success-title">Mensagem <em>enviada!</em></h3>
+      <p class="contact-success-text">Obrigado por entrar em contato! Recebemos sua mensagem e retornaremos em até <strong>1 dia útil</strong> no e-mail informado. 🌿</p>
+      <button class="contact-success-back" onclick="resetContact()">← Enviar outra mensagem</button>
     </div>
   </div>
 </div>
@@ -506,7 +515,7 @@ footer{position:relative;z-index:1;background:var(--ink);padding:56px 24px 0;}
   <div class="footer-inner">
     <button class="footer-brand" onclick="showPage('agenda')">
       <div class="footer-logo">
-        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="52" height="52">
+        <svg viewBox="0 0 64 64" fill="none" width="52" height="52">
           <path d="M32 58C32 58 10 44 10 26C10 14 20 6 32 6C44 6 54 14 54 26C54 44 32 58 32 58Z" fill="#8fa897" opacity="0.18"/>
           <path d="M32 56C32 56 12 43 12 26C12 15 21 8 32 8C43 8 52 15 52 26C52 43 32 56 32 56Z" stroke="#8fa897" stroke-width="1.5" fill="none"/>
           <path d="M32 54C32 54 32 20 32 10" stroke="#8fa897" stroke-width="1.2" stroke-linecap="round"/>
@@ -554,6 +563,35 @@ footer{position:relative;z-index:1;background:var(--ink);padding:56px 24px 0;}
 </footer>
 
 <script>
+function handleContact() {
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const subject = document.getElementById('contactSubject').value;
+  const message = document.getElementById('contactMessage').value.trim();
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  [
+    { el: document.getElementById('contactName'), valid: name.length > 0 },
+    { el: document.getElementById('contactEmail'), valid: emailValid },
+    { el: document.getElementById('contactSubject'), valid: subject !== '' },
+    { el: document.getElementById('contactMessage'), valid: message.length > 0 },
+  ].forEach(({ el, valid }) => {
+    el.style.borderColor = valid ? '' : '#c4a882';
+    if (!valid) { el.focus(); }
+  });
+  if (!name || !emailValid || !subject || !message) return;
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('contactSuccess').classList.add('show');
+}
+
+function resetContact() {
+  document.getElementById('contactForm').style.display = 'flex';
+  document.getElementById('contactSuccess').classList.remove('show');
+  document.getElementById('contactName').value = '';
+  document.getElementById('contactEmail').value = '';
+  document.getElementById('contactSubject').value = '';
+  document.getElementById('contactMessage').value = '';
+}
+
 function handleSignup() {
   const input = document.getElementById('signupEmail');
   const success = document.getElementById('signupSuccess');
